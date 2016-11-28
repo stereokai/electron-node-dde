@@ -1,5 +1,7 @@
-Node-dde
+electron-node-dde
 ========
+
+### *This is an identical fork of `thunder9/node-dde` for use in Electron apps*
 
 Node-dde is a simplified regacy win32 Dynamic Data Exchange (DDE) wrapper for node.js using [Edge.js](https://github.com/tjanczuk/edge) and [NDde](http://ndde.codeplex.com/). The client listen to the asynchronous *advise* on multi-threaded CLR without blocking the node.js event loop.
 
