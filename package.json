@@ -1,13 +1,13 @@
 {
   "name": "node-dde",
   "author": {
-    "name": "thunder9",
-    "url": "https://github.com/thunder9"
+    "name": "Stereokai",
+    "url": "https://github.com/stereokai"
   },
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/thunder9/node-dde.git"
+    "url": "git://github.com/stereokai/electron-node-dde.git"
   },
   "os": [ "win32" ],
   "license": "MIT",
