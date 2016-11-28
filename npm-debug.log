@@ -1,0 +1,114 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Users\\Tom\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'publish' ]
+2 info using npm@4.0.3
+3 info using node@v5.3.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: 'C:\\Users\\Tom\\Dev\\stereokai_node-dde',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory C:\Users\Tom\AppData\Roaming\npm-cache\node-dde\0.1.0\package.tgz not in flight; packing
+9 verbose correctMkdir C:\Users\Tom\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+10 info lifecycle node-dde@0.1.0~prepublish: node-dde@0.1.0
+11 silly lifecycle node-dde@0.1.0~prepublish: no script for prepublish, continuing
+12 info lifecycle node-dde@0.1.0~prepare: node-dde@0.1.0
+13 silly lifecycle node-dde@0.1.0~prepare: no script for prepare, continuing
+14 verbose tar pack [ 'C:\\Users\\Tom\\AppData\\Roaming\\npm-cache\\node-dde\\0.1.0\\package.tgz',
+14 verbose tar pack   'C:\\Users\\Tom\\Dev\\stereokai_node-dde' ]
+15 verbose tarball C:\Users\Tom\AppData\Roaming\npm-cache\node-dde\0.1.0\package.tgz
+16 verbose folder C:\Users\Tom\Dev\stereokai_node-dde
+17 verbose addLocalTarball adding from inside cache C:\Users\Tom\AppData\Roaming\npm-cache\node-dde\0.1.0\package.tgz
+18 verbose correctMkdir C:\Users\Tom\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+19 silly cache afterAdd node-dde@0.1.0
+20 verbose afterAdd C:\Users\Tom\AppData\Roaming\npm-cache\node-dde\0.1.0\package\package.json not in flight; writing
+21 verbose correctMkdir C:\Users\Tom\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+22 verbose afterAdd C:\Users\Tom\AppData\Roaming\npm-cache\node-dde\0.1.0\package\package.json written
+23 silly publish { name: 'node-dde',
+23 silly publish   author: { name: 'Stereokai', url: 'https://github.com/stereokai' },
+23 silly publish   version: '0.1.0',
+23 silly publish   repository:
+23 silly publish    { type: 'git',
+23 silly publish      url: 'git://github.com/stereokai/electron-node-dde.git' },
+23 silly publish   os: [ 'win32' ],
+23 silly publish   license: 'MIT',
+23 silly publish   dependencies: { 'electron-edge': '~6.5.1' },
+23 silly publish   devDependencies: { timelineplayer: 'git://github.com/thunder9/timelineplayer.js.git' },
+23 silly publish   scripts: { test: 'test\\test.bat', start: 'node server.js' },
+23 silly publish   readme: 'Node-dde\r\n========\r\n\r\nNode-dde is a simplified regacy win32 Dynamic Data Exchange (DDE) wrapper for node.js using [Edge.js](https://github.com/tjanczuk/edge) and [NDde](http://ndde.codeplex.com/). The client listen to the asynchronous *advise* on multi-threaded CLR without blocking the node.js event loop.\r\n\r\n# Installation\r\n\r\nRun the following in your project folder:\r\n\r\n```\r\nnpm install node-dde\r\n```\r\n\r\n# Example\r\n\r\n## Client\r\n\r\nExample to listen to the asynchronous advise from a single service-topic-item source is the following:\r\n\r\n```javascript\r\nvar dde = require(\'node-dde\');\r\n\r\nclient = dde.createClient(\'myapp\', \'mytopic\');\r\n\r\nclient.on(\'advise\', function(service, topic, item, text) {\r\n  console.log(\'OnAdvise: \'\r\n    + \'Service: \' + service\r\n    + \', Topic: \' + topic\r\n    + \', Item: \' + item\r\n    + \', Text: \' + text);\r\n});\r\n\r\nclient.connect();\r\n\r\nclient.startAdvise(\'myitem\');\r\n```\r\n\r\nExample to listen to the asynchronous advise from multiple service-topic-item sources is the following:\r\n\r\n```javascript\r\nvar dde = require(\'node-dde\');\r\n\r\nclients = dde.createClients({\r\n    myapp: {\r\n        mytopic1: [\'myitem1\', \'myitem2\'],\r\n        mytopic2: [\'myitem1\', \'myitem2\']\r\n    }\r\n});\r\n\r\nclients.on(\'advise\', function(service, topic, item, text) {\r\n  console.log(\'OnAdvise: \'\r\n    + \'Service: \' + service\r\n    + \', Topic: \' + topic\r\n    + \', Item: \' + item\r\n    + \', Text: \' + text);\r\n});\r\n\r\nclients.connect();\r\n\r\nclients.startAdvise();\r\n```\r\n\r\nExample of sending an asynchronous advise to the browser in realtime using [Socket.IO](https://github.com/learnboost/socket.io) is the following:\r\n\r\n```javascript\r\nvar io = require(\'socket.io\').listen(80);\r\n\r\nvar dde = require(\'node-dde\').createClient(\'myapp\', \'mytopic\');\r\n\r\ndde.on(\'advise\', function(service, topic, item, text) {\r\n  io.sockets.emit(\'advise\', { item: item, text: text });\r\n});\r\n\r\ndde.connect();\r\n\r\ndde.startAdvise(\'myitem\');\r\n```\r\n\r\n## Server\r\n\r\nExample to push the asynchronous advise to the client is the following:\r\n\r\n```javascript\r\nvar dde = require(\'node-dde\');\r\n\r\nserver = dde.createServer(\'myapp\');\r\n\r\nserver.on(\'disconnect\', function(service, topic) {\r\n  console.log(\'OnDisconnect: \'\r\n    + \'Service: \' + service\r\n    + \', Topic: \' + topic);\r\n});\r\n\r\nserver.on(\'advise\', function(topic, item, format) {\r\n  console.log(\'OnAdvise: \'\r\n    + \'Topic: \' + topic\r\n    + \', Item: \' + item\r\n    + \', Format: \' + format);\r\n});\r\n\r\nvar i = 0;\r\nserver.onAdvise = function() {\r\n  return \'advise-\' + i++;\r\n};\r\n\r\nsetInterval(function() { server.advise(\'*\', \'*\'); }, 1000);\r\n\r\nserver.register();\r\n```\r\n\r\n# Methods\r\n\r\n```javascript\r\n\r\n// Client\r\n\r\nclient = dde.createClient(service, topic)\r\nclient.connect()\r\nclient.disconnect()\r\nclient.pause()\r\nclient.resume()\r\nclient.execute(command, timeout)\r\nclient.poke(item, data, timeout)\r\nclient.request(item, format, timeout)\r\nclient.startAdvise(item, format, hot, timeout)\r\nclient.stopAdvise(item, timeout)\r\nclient.beginExecute(command, oncomplete)\r\nclient.beginPoke(item, data, format, oncomplete)\r\nclient.beginRequest(item, format, oncomplete)\r\nclient.beginStartAdvise(item, format, hot, oncomplete)\r\nclient.beginStopAdvise(item, oncomplete)\r\nclient.dispose()\r\nclient.service()\r\nclient.topic()\r\nclient.isConnected()\r\nclient.isPaused()\r\n\r\n// Clients\r\n\r\nclients = dde.createClients(services)\r\nclients.connect()\r\nclients.disconnect()\r\nclients.pause()\r\nclients.resume()\r\nclients.execute(command, timeout)\r\nclients.poke(data, timeout)\r\nclients.request(format, timeout)\r\nclients.startAdvise(format, hot, timeout)\r\nclients.stopAdvise(timeout)\r\nclients.dispose()\r\nclients.service()\r\nclients.topic()\r\nclients.isConnected()\r\nclients.isPaused()\r\n\r\n// Server\r\n\r\nserver = dde.createServer(service)\r\nserver.register()\r\nserver.unregister()\r\nserver.advise(topic, item)\r\nserver.disconnect()\r\nserver.pause()\r\nserver.resume()\r\nserver.dispose()\r\nserver.service()\r\nserver.isRegistered()\r\n```\r\n\r\n# Events\r\n\r\n```javascript\r\n\r\n// Client\r\n\r\nclient.on(\'disconnected\', function(service, topic, isDisposed, isServerInitiated) {})\r\nclient.on(\'advise\', function(service, topic, item, text) {})\r\n\r\n// Clients\r\n\r\nclients.on(\'disconnected\', function(service, topic, isDisposed, isServerInitiated) {})\r\nclients.on(\'advise\', function(service, topic, item, text) {})\r\n\r\n// Server\r\n\r\nserver.on(\'before connect\', function(topic) {})\r\nserver.on(\'after connect\', function(service, topic) {})\r\nserver.on(\'disconnect\', function(service, topic) {})\r\nserver.on(\'start advise\', function(service, topic, item, format) {})\r\nserver.on(\'stop advise\', function(service, topic, item) {})\r\nserver.on(\'execute\', function(service, topic, command) {})\r\nserver.on(\'poke\', function(service, topic, item, data, format) {})\r\nserver.on(\'request\', function(service, topic, item, format) {})\r\nserver.on(\'advise\', function(topic, item, format) {})\r\n```\r\n\r\n# Overridable callbacks\r\n\r\n```javascript\r\n\r\n// Client\r\n\r\n// N/A\r\n\r\n// Clients\r\n\r\n// N/A\r\n\r\n// Server\r\n\r\nserver.onBeforeConnect = function(topic) { return true; };\r\nserver.onAfterConnect = function(service, topic) {};\r\nserver.onDisconnect = function(service, topic) {};\r\nserver.onStartAdvise = function(service, topic, item, format) { return true; };\r\nserver.onStopAdvise = function(service, topic, item) {};\r\nserver.onExecute = function(service, topic, command) {};\r\nserver.onPoke = function(service, topic, item, data, format) {};\r\nserver.onRequest = function(service, topic, item, format) { return \'\'; };\r\nserver.onAdvise = function(topic, item, format) { return \'\'; };\r\n```\r\n\r\n# License\r\n\r\nCopyright (c) 2013 thunder9 licensed under the MIT license.',
+23 silly publish   readmeFilename: 'README.md',
+23 silly publish   gitHead: '14526f99ce064a6533761a9a62c6105c760f21d4',
+23 silly publish   description: 'Node-dde\r ========',
+23 silly publish   bugs: { url: 'https://github.com/stereokai/electron-node-dde/issues' },
+23 silly publish   homepage: 'https://github.com/stereokai/electron-node-dde#readme',
+23 silly publish   _id: 'node-dde@0.1.0',
+23 silly publish   _shasum: '195511c3b3b28b500a53696fd9a4d9225a030461',
+23 silly publish   _from: '.' }
+24 info lifecycle node-dde@0.1.0~prepublishOnly: node-dde@0.1.0
+25 silly lifecycle node-dde@0.1.0~prepublishOnly: no script for prepublishOnly, continuing
+26 verbose getPublishConfig undefined
+27 silly mapToRegistry name node-dde
+28 silly mapToRegistry using default registry
+29 silly mapToRegistry registry https://registry.npmjs.org/
+30 silly mapToRegistry data Result {
+30 silly mapToRegistry   raw: 'node-dde',
+30 silly mapToRegistry   scope: null,
+30 silly mapToRegistry   escapedName: 'node-dde',
+30 silly mapToRegistry   name: 'node-dde',
+30 silly mapToRegistry   rawSpec: '',
+30 silly mapToRegistry   spec: 'latest',
+30 silly mapToRegistry   type: 'tag' }
+31 silly mapToRegistry uri https://registry.npmjs.org/node-dde
+32 verbose publish registryBase https://registry.npmjs.org/
+33 silly publish uploading C:\Users\Tom\AppData\Roaming\npm-cache\node-dde\0.1.0\package.tgz
+34 verbose request uri https://registry.npmjs.org/node-dde
+35 verbose request sending authorization for write operation
+36 info attempt registry request try #1 at 6:52:32 PM
+37 verbose request using bearer token for auth
+38 verbose request id 0306d1dafbbc1116
+39 http request PUT https://registry.npmjs.org/node-dde
+40 http 403 https://registry.npmjs.org/node-dde
+41 verbose headers { 'content-type': 'application/json',
+41 verbose headers   'cache-control': 'max-age=300',
+41 verbose headers   'content-length': '102',
+41 verbose headers   'accept-ranges': 'bytes',
+41 verbose headers   date: 'Mon, 28 Nov 2016 16:52:31 GMT',
+41 verbose headers   via: '1.1 varnish',
+41 verbose headers   connection: 'keep-alive',
+41 verbose headers   'x-served-by': 'cache-fra1224-FRA',
+41 verbose headers   'x-cache': 'MISS',
+41 verbose headers   'x-cache-hits': '0',
+41 verbose headers   'x-timer': 'S1480351951.135347,VS0,VE842',
+41 verbose headers   vary: 'Accept-Encoding' }
+42 verbose request invalidating C:\Users\Tom\AppData\Roaming\npm-cache\registry.npmjs.org\node-dde on PUT
+43 error publish Failed PUT 403
+44 verbose stack Error: you do not have permission to publish "node-dde". Are you logged in as the correct user? : node-dde
+44 verbose stack     at makeError (C:\Users\Tom\AppData\Roaming\npm\node_modules\npm\node_modules\npm-registry-client\lib\request.js:302:12)
+44 verbose stack     at CachingRegistryClient.<anonymous> (C:\Users\Tom\AppData\Roaming\npm\node_modules\npm\node_modules\npm-registry-client\lib\request.js:290:14)
+44 verbose stack     at Request._callback (C:\Users\Tom\AppData\Roaming\npm\node_modules\npm\node_modules\npm-registry-client\lib\request.js:210:14)
+44 verbose stack     at Request.self.callback (C:\Users\Tom\AppData\Roaming\npm\node_modules\npm\node_modules\request\request.js:186:22)
+44 verbose stack     at emitTwo (events.js:87:13)
+44 verbose stack     at Request.emit (events.js:172:7)
+44 verbose stack     at Request.<anonymous> (C:\Users\Tom\AppData\Roaming\npm\node_modules\npm\node_modules\request\request.js:1081:10)
+44 verbose stack     at emitOne (events.js:77:13)
+44 verbose stack     at Request.emit (events.js:169:7)
+44 verbose stack     at IncomingMessage.<anonymous> (C:\Users\Tom\AppData\Roaming\npm\node_modules\npm\node_modules\request\request.js:1001:12)
+45 verbose statusCode 403
+46 verbose pkgid node-dde
+47 verbose cwd C:\Users\Tom\Dev\stereokai_node-dde
+48 error Windows_NT 10.0.14393
+49 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Users\\Tom\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js" "publish"
+50 error node v5.3.0
+51 error npm  v4.0.3
+52 error code E403
+53 error you do not have permission to publish "node-dde". Are you logged in as the correct user? : node-dde
+54 error If you need help, you may report this error at:
+54 error     <https://github.com/npm/npm/issues>
+55 verbose exit [ 1, true ]
