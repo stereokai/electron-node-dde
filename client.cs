@@ -88,7 +88,7 @@ namespace NodeDde
                     {
                         case "Request":
                             result = client.Request(item, format, timeout);
-                            return Encoding.Default.GetString(result);
+                            return Encoding.UTF8.GetString(result);
                         case "BeginExecute":
                             await Task.Run(() =>
                             {
@@ -103,7 +103,7 @@ namespace NodeDde
                             {
                                 var tcs = new TaskCompletionSource<bool>();
                                 AsyncCallback cb = (ar) => { tcs.SetResult(true); };
-                                var bytes = Encoding.Default.GetBytes((string)opts["data"] + "\0");
+                                var bytes = Encoding.UTF8.GetBytes((string)opts["data"] + "\0");
                                 client.BeginPoke(item, bytes, format, cb, client);
                                 var r = tcs.Task.Result;
                             });
@@ -119,7 +119,7 @@ namespace NodeDde
                                 client.BeginRequest(item, format, cb, client);
                                 result = tcs.Task.Result;
                             });
-                            return Encoding.Default.GetString(result);
+                            return Encoding.UTF8.GetString(result);
                         case "BeginStartAdvise":
                             await Task.Run(() =>
                             {
@@ -193,7 +193,7 @@ namespace NodeDde
                                     obj["service"] = client.Service;
                                     obj["topic"] = client.Topic;
                                     obj["item"] = item_;
-                                    obj["result"] = Encoding.Default.GetString(result);
+                                    obj["result"] = Encoding.UTF8.GetString(result);
                                     results.Add(obj);
                                 }
                             }

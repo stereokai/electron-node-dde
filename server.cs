@@ -176,7 +176,7 @@ namespace NodeDde
                 obj["topic"] = conversation.Topic;
                 obj["handle"] = conversation.Handle;
                 obj["item"] = item;
-                obj["data"] = Encoding.Default.GetString(data);
+                obj["data"] = Encoding.UTF8.GetString(data);
                 obj["format"] = format;
                 var tcs = new TaskCompletionSource<string>();
                 Task.Run(async () =>
@@ -218,7 +218,7 @@ namespace NodeDde
                 // Return data to the client only if the format is CF_TEXT.
                 if (format == 1)
                 {
-                    return new RequestResult(System.Text.Encoding.Default.GetBytes(text + "\0"));
+                    return new RequestResult(System.Text.Encoding.UTF8.GetBytes(text + "\0"));
                 }
                 return RequestResult.NotProcessed;
             }
@@ -241,7 +241,7 @@ namespace NodeDde
                 // Send data to the client only if the format is CF_TEXT.
                 if (format == 1)
                 {
-                    return System.Text.Encoding.Default.GetBytes(text + "\0");
+                    return System.Text.Encoding.UTF8.GetBytes(text + "\0");
                 }
                 return null;
             }
