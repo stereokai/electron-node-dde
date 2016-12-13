@@ -4,7 +4,7 @@
     "name": "Stereokai",
     "url": "https://github.com/stereokai"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "repository": {
     "type": "git",
     "url": "git://github.com/stereokai/electron-node-dde.git"
