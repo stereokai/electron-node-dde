@@ -10,7 +10,7 @@ Node-dde is a simplified regacy win32 Dynamic Data Exchange (DDE) wrapper for no
 Run the following in your project folder:
 
 ```
-npm install node-dde
+npm install electron-node-dde
 ```
 
 # Example
