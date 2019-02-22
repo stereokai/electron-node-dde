@@ -1,4 +1,4 @@
-var edge = require('edge');
+var edge = require('electron-edge-js');
 
 var getInvoker = edge.func({
   source: __dirname + '/client.cs',

@@ -11,8 +11,6 @@
   },
   "os": [ "win32" ],
   "license": "MIT",
-  "dependencies": {
-  },
   "devDependencies": {
     "timelineplayer": "git://github.com/thunder9/timelineplayer.js.git"
   },
